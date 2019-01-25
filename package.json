@@ -1,56 +1,56 @@
 {
-	"name": "ovalizer",
-	"version": "0.0.0",
-	"description": "Sketch plugin for Oval awesomness",
-	"license": "Apache-2.0",
-	"repository": "OvalMoney/ovalizer-sketch",
-	"bugs": {
-		"url": "https://github.com/OvalMoney/ovalizer-sketch/issues",
-		"email": "alessio.occhipinti@ovalmoney.com"
-	},
-	"homepage": "https://github.com/OvalMoney/ovalizer-sketch",
-	"author": {
-		"name": "Oval Money",
-		"email": "alessio.occhipinti@ovalmoney.com"
-	},
-	"engines": {
-		"node": ">=8",
-		"sketch": ">=3.0"
-	},
-	"scripts": {
-		"build": "skpm-build",
-		"watch": "skpm-build --watch",
-		"start": "skpm-build --watch --run",
-		"release": "git pull && standard-version",
-		"postinstall": "yarn build && skpm-link",
-		"test": "xo"
-	},
-	"dependencies": {},
-	"devDependencies": {
-		"@skpm/builder": "0.5.13",
-		"ava": "1.0.1",
-		"nyc": "13.1.0",
-		"standard-version": "4.4.0",
-		"xo": "0.23.0"
-	},
-	"xo": {
-		"rules": {
-			"max-len": [
-				"error",
-				{
-					"code": 130,
-					"ignoreUrls": true
-				}
-			],
-			"capitalized-comments": "off"
-		}
-	},
-	"skpm": {
-		"name": "Ovalizer Sketch",
-		"manifest": "src/manifest.json",
-		"main": "ovalizer.sketchplugin",
-		"assets": [
-			"assets/**/*"
-		]
-	}
+  "name": "ovalizer",
+  "version": "0.0.1",
+  "description": "Sketch plugin for Oval awesomness",
+  "license": "Apache-2.0",
+  "repository": "OvalMoney/ovalizer-sketch",
+  "bugs": {
+    "url": "https://github.com/OvalMoney/ovalizer-sketch/issues",
+    "email": "alessio.occhipinti@ovalmoney.com"
+  },
+  "homepage": "https://github.com/OvalMoney/ovalizer-sketch",
+  "author": {
+    "name": "Oval Money",
+    "email": "alessio.occhipinti@ovalmoney.com"
+  },
+  "engines": {
+    "node": ">=8",
+    "sketch": ">=3.0"
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch --run",
+    "release": "git pull && standard-version",
+    "postinstall": "yarn build && skpm-link",
+    "test": "xo"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@skpm/builder": "0.5.13",
+    "ava": "1.0.1",
+    "nyc": "13.1.0",
+    "standard-version": "4.4.0",
+    "xo": "0.23.0"
+  },
+  "xo": {
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 130,
+          "ignoreUrls": true
+        }
+      ],
+      "capitalized-comments": "off"
+    }
+  },
+  "skpm": {
+    "name": "Ovalizer Sketch",
+    "manifest": "src/manifest.json",
+    "main": "ovalizer.sketchplugin",
+    "assets": [
+      "assets/**/*"
+    ]
+  }
 }
