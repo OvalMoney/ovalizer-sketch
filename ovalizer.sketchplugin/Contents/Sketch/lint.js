@@ -276,25 +276,27 @@ var filterArtboards = function filterArtboards(artboardToFilter, invalidArtboard
 function checkArtoboards(pageIt, pageEn) {
   var rowsIt = Object(_rows_by_position__WEBPACK_IMPORTED_MODULE_0__["default"])(pageIt);
   var rowsEn = Object(_rows_by_position__WEBPACK_IMPORTED_MODULE_0__["default"])(pageEn);
-  var artboardsIt = getArtboards(rowsIt);
-  var artboardsEn = getArtboards(rowsEn);
+  var artboardsItRows = getArtboards(rowsIt);
+  var artboardsEnRows = getArtboards(rowsEn);
+  var innerArtboardsIt = artboardsItRows.reduce(function (acc, artboardGroup) {
+    return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
+  }, []);
+  var innerArtboardsEn = artboardsEnRows.reduce(function (acc, artboardGroup) {
+    return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
+  }, []);
 
-  if (artboardsEn.length !== artboardsIt.length) {
-    var isEnInvalid = artboardsEn.length < artboardsIt.length;
-    var innerArtboardsIt = artboardsIt.reduce(function (acc, artboardGroup) {
-      return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
-    }, []);
-    var innerArtboardsEn = artboardsEn.reduce(function (acc, artboardGroup) {
-      return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
-    }, []); // If ENG is invalid filter on IT to find what's missing
-
-    var missingArtboards = isEnInvalid ? filterArtboards(innerArtboardsIt, innerArtboardsEn) : filterArtboards(innerArtboardsEn, innerArtboardsIt);
-    var missingArtboardsNames = missingArtboards.map(function (artboard) {
+  if (innerArtboardsEn.length !== innerArtboardsIt.length) {
+    // If ENG is invalid filter on IT to find what's missing
+    var missingArtboardsEn = filterArtboards(innerArtboardsIt, innerArtboardsEn).map(function (artboard) {
       return artboard.name();
     });
-    var invalidPage = isEnInvalid ? 'ENG' : 'IT';
+    var missingArtboardsIt = filterArtboards(innerArtboardsEn, innerArtboardsIt).map(function (artboard) {
+      return artboard.name();
+    });
+    var missingItaMessage = missingArtboardsIt.length > 0 ? "ITA: ".concat(missingArtboardsIt, " ") : '';
+    var missingEngMessage = missingArtboardsEn.length > 0 ? "ENG: ".concat(missingArtboardsEn) : '';
     return {
-      message: "\u26A0\uFE0F pages are missing in \"".concat(invalidPage, "\": ").concat(missingArtboardsNames)
+      message: '⚠️ Artboards missing. Details: '.concat(missingItaMessage).concat(missingEngMessage)
     };
   }
 }

@@ -17,7 +17,7 @@
       "ovalizer.lint"
     ]
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Sketch plugin for Oval awesomness",
   "homepage": "https://github.com/OvalMoney/ovalizer-sketch",
   "name": "Ovalizer Sketch",
