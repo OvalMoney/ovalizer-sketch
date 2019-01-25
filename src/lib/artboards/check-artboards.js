@@ -8,21 +8,18 @@ export default function checkArtoboards(pageIt, pageEn) {
 	const rowsIt = rowsByPosition(pageIt);
 	const rowsEn = rowsByPosition(pageEn);
 
-	const artboardsIt = getArtboards(rowsIt);
-	const artboardsEn = getArtboards(rowsEn);
+	const artboardsItRows = getArtboards(rowsIt);
+	const artboardsEnRows = getArtboards(rowsEn);
+	const innerArtboardsIt = artboardsItRows.reduce((acc, artboardGroup) => acc.concat(...artboardGroup), []);
+	const innerArtboardsEn = artboardsEnRows.reduce((acc, artboardGroup) => acc.concat(...artboardGroup), []);
 
-	if (artboardsEn.length !== artboardsIt.length) {
-		const isEnInvalid = artboardsEn.length < artboardsIt.length;
-		const innerArtboardsIt = artboardsIt.reduce((acc, artboardGroup) => acc.concat(...artboardGroup), []);
-		const innerArtboardsEn = artboardsEn.reduce((acc, artboardGroup) => acc.concat(...artboardGroup), []);
+	if (innerArtboardsEn.length !== innerArtboardsIt.length) {
 		// If ENG is invalid filter on IT to find what's missing
-		const missingArtboards = isEnInvalid ?
-			filterArtboards(innerArtboardsIt, innerArtboardsEn) :
-			filterArtboards(innerArtboardsEn, innerArtboardsIt);
-		const missingArtboardsNames = missingArtboards.map(artboard => artboard.name());
+		const missingArtboardsEn = filterArtboards(innerArtboardsIt, innerArtboardsEn).map(artboard => artboard.name());
+		const missingArtboardsIt = filterArtboards(innerArtboardsEn, innerArtboardsIt).map(artboard => artboard.name());
 
-		const invalidPage = isEnInvalid ? 'ENG' : 'IT';
-
-		return {message: `⚠️ pages are missing in "${invalidPage}": ${missingArtboardsNames}`};
+		const missingItaMessage = missingArtboardsIt.length > 0 ? `ITA: ${missingArtboardsIt} ` : '';
+		const missingEngMessage = missingArtboardsEn.length > 0 ? `ENG: ${missingArtboardsEn}` : '';
+		return {message: '⚠️ Artboards missing. Details: '.concat(missingItaMessage).concat(missingEngMessage)};
 	}
 }
