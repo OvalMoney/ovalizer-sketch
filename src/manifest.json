@@ -1,0 +1,17 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "🎩 Lint",
+      "description": "Apply Oval conventions automatically 🎩",
+      "identifier": "ovalizer.lint",
+      "script": "./commands/lint.js",
+      "shortcut": "ctrl shift l"
+    }
+  ],
+  "menu": {
+    "title": "𝟢𝟢 Ovalizer",
+    "items": ["ovalizer.lint"]
+  }
+}
