@@ -21,6 +21,7 @@
 		"build": "skpm-build",
 		"watch": "skpm-build --watch",
 		"start": "skpm-build --watch --run",
+		"release": "git pull && standard-version",
 		"postinstall": "yarn build && skpm-link",
 		"test": "xo"
 	},
