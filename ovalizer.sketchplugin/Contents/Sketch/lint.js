@@ -119,7 +119,7 @@ function validateAndFix(context) {
       enPage = _getPages.enPage;
 
   if (!itPage && !enPage) {
-    sketch_ui__WEBPACK_IMPORTED_MODULE_0___default.a.message('⚠️ Missing IT or ENG page');
+    sketch_ui__WEBPACK_IMPORTED_MODULE_0___default.a.message('⚠️ Missing ITA or ENG page');
     return;
   }
 
@@ -249,6 +249,14 @@ function autoalign(page) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return checkArtoboards; });
 /* harmony import */ var _rows_by_position__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rows-by-position */ "./src/lib/artboards/rows-by-position.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 
 
 var getArtboards = function getArtboards(rows) {
@@ -259,8 +267,8 @@ var getArtboards = function getArtboards(rows) {
 
 var filterArtboards = function filterArtboards(artboardToFilter, invalidArtboards) {
   return artboardToFilter.filter(function (artboard) {
-    return invalidArtboards.find(function (invalid) {
-      return invalid.name === artboard.name;
+    return !invalidArtboards.find(function (invalid) {
+      return invalid.name() === artboard.name();
     });
   });
 };
@@ -272,13 +280,17 @@ function checkArtoboards(pageIt, pageEn) {
   var artboardsEn = getArtboards(rowsEn);
 
   if (artboardsEn.length !== artboardsIt.length) {
-    var isEnInvalid = artboardsEn.length < artboardsIt.length; // If ENG is invalid filter on IT to find what's missing
+    var isEnInvalid = artboardsEn.length < artboardsIt.length;
+    var innerArtboardsIt = artboardsIt.reduce(function (acc, artboardGroup) {
+      return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
+    }, []);
+    var innerArtboardsEn = artboardsEn.reduce(function (acc, artboardGroup) {
+      return acc.concat.apply(acc, _toConsumableArray(artboardGroup));
+    }, []); // If ENG is invalid filter on IT to find what's missing
 
-    var missingArtboards = isEnInvalid ? filterArtboards(artboardsIt, artboardsEn) : filterArtboards(artboardsEn, artboardsIt);
-    var missingArtboardsNames = missingArtboards.map(function (artboardGroup) {
-      return artboardGroup.map(function (artboard) {
-        return artboard.name();
-      });
+    var missingArtboards = isEnInvalid ? filterArtboards(innerArtboardsIt, innerArtboardsEn) : filterArtboards(innerArtboardsEn, innerArtboardsIt);
+    var missingArtboardsNames = missingArtboards.map(function (artboard) {
+      return artboard.name();
     });
     var invalidPage = isEnInvalid ? 'ENG' : 'IT';
     return {
