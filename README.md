@@ -6,7 +6,7 @@
 
 ## Install
 
-Download the [latest version](https://github.com/ovalmoney/ovalizer/archive/master.zip) and double click on `ovalizer.sketchplugin`.
+Download the [latest version](https://github.com/ovalmoney/ovalizer-sketch/archive/master.zip) and double click on `ovalizer.sketchplugin`.
 
 ## License
 
