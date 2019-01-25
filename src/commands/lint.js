@@ -10,7 +10,7 @@ export default function validateAndFix(context) {
 	const {itPage, enPage} = getPages(context);
 
 	if (!itPage && !enPage) {
-		UI.message('⚠️ Missing IT or ENG page');
+		UI.message('⚠️ Missing ITA or ENG page');
 		return;
 	}
 
